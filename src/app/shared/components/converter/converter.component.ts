@@ -36,15 +36,18 @@ export class ConverterComponent implements OnInit{
   }
 
   convertCurrency(direction: string): void {
+    const rate1 = this.rates[this.currency1];
+    const rate2 = this.rates[this.currency2];
+
     if (direction === 'fromFirst') {
-      const rate1 = this.rates[this.currency1];
-      const rate2 = this.rates[this.currency2];
-      this.amount2 = parseFloat((this.amount1 * (rate2 / rate1)).toFixed(2));
+      this.amount2 = this.calculateConversion(this.amount1, rate1, rate2);
     } else {
-      const rate1 = this.rates[this.currency2];
-      const rate2 = this.rates[this.currency1];
-      this.amount1 = parseFloat((this.amount2 * (rate2 / rate1)).toFixed(2));
+      this.amount1 = this.calculateConversion(this.amount2, rate2, rate1);
     }
+  }
+
+  private calculateConversion(amount: number, fromRate: number, toRate: number): number {
+    return parseFloat((amount * (toRate / fromRate)).toFixed(2));
   }
 
 }

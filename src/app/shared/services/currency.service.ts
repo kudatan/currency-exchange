@@ -15,13 +15,11 @@ export class CurrencyService {
   getExchangeRates(): Observable<{ [key: string]: number }> {
     return this.http.get<any>(this.apiUrl).pipe(
       map(data => {
-        return {
-          USD: 1,
-          UAH: data.usd.uah,
-          EUR: data.usd.eur,
-          GBP: data.usd.gbp,
-          JPY: data.usd.jpy
-        };
+        const rates: { [key: string]: number } = { USD: 1 };
+        for (const currency in data.usd) {
+          rates[currency.toUpperCase()] = data.usd[currency];
+        }
+        return rates;
       })
     );
   }

@@ -20,11 +20,18 @@ export class HeaderComponent implements OnInit{
   constructor(private currencyService: CurrencyService) {}
 
   ngOnInit(): void {
+    this.loadExchangeRates();
+    this.setCurrentDate();
+  }
+
+  loadExchangeRates(): void {
     this.currencyService.getExchangeRates().subscribe(rates => {
       this.usdToUah = rates['UAH'];
       this.eurToUah = rates['EUR'] / rates['USD'] * rates['UAH'];
     });
+  }
 
+  setCurrentDate(): void {
     const today = new Date();
     const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long' };
     this.currentDate = today.toLocaleDateString('en-UA', options);
