@@ -1,0 +1,48 @@
+.converter {
+  margin-top: 150px;
+
+  &-currency {
+    border: 1px solid #a794d0;
+    border-radius: 10px;
+    padding: 10px 20px;
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &-vertical-line {
+      border-left: 1px solid #a794d0;
+      margin: 0 35px;
+      height: 35px;
+    }
+
+    select, input {
+      font-family: "Montserrat", sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      border: unset;
+      background: none;
+      cursor: pointer;
+      -webkit-appearance: none;
+    }
+
+    input {
+      text-align: end;
+    }
+
+    input:focus-visible, select:focus-visible {
+      border: unset;
+      outline: none;
+    }
+  }
+
+  &-currency:first-child {
+    margin-bottom: 20px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

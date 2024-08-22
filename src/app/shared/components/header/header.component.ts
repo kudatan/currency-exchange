@@ -21,8 +21,8 @@ export class HeaderComponent implements OnInit{
 
   ngOnInit(): void {
     this.currencyService.getExchangeRates().subscribe(rates => {
-      this.usdToUah = rates.usdToUah;
-      this.eurToUah = rates.eurToUah;
+      this.usdToUah = rates['UAH'];
+      this.eurToUah = rates['EUR'] / rates['USD'] * rates['UAH'];
     });
 
     const today = new Date();

@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +9,18 @@ import {map, Observable} from "rxjs";
 
 export class CurrencyService {
 
-  private apiUrl = 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/uah.json';
-
+  private apiUrl = environment.currencyApiUrl;
   constructor(private http: HttpClient) {}
 
-  getExchangeRates(): Observable<{ usdToUah: number, eurToUah: number }> {
+  getExchangeRates(): Observable<{ [key: string]: number }> {
     return this.http.get<any>(this.apiUrl).pipe(
       map(data => {
         return {
-          usdToUah: 1 / data.uah.usd,
-          eurToUah: 1 / data.uah.eur
+          USD: 1,
+          UAH: data.usd.uah,
+          EUR: data.usd.eur,
+          GBP: data.usd.gbp,
+          JPY: data.usd.jpy
         };
       })
     );
