@@ -1,0 +1,23 @@
+<div class="header">
+  <div class="container">
+    <div class="header-logo">
+      <img src="assets/currency-exchange-logo.png" alt="logo">
+      <div class="header-logo-text">
+        <h2>Currency Exchange</h2>
+        <p>Current information as of {{ currentDate }}</p>
+      </div>
+    </div>
+    <div class="header-currency">
+      <div class="header-currency-rate">
+      <span>
+        <img class="header-currency-rate-flag" src="assets/us.png" alt="us">
+        1 USD = {{ usdToUah | number:'1.2-2' }} UAH</span>
+      </div>
+      <div class="header-currency-rate">
+      <span>
+        <img class="header-currency-rate-flag" src="assets/eu.png" alt="eu">
+        1 EUR = {{ eurToUah | number:'1.2-2' }} UAH</span>
+      </div>
+    </div>
+  </div>
+</div>

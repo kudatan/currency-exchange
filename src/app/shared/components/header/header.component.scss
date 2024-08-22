@@ -1,0 +1,58 @@
+.header {
+  background: linear-gradient(90deg, rgba(126,159,236,1) 35%, rgba(204,137,182,1) 100%);
+  max-height: 100px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  width: 100%;
+  top: 0;
+
+  box-shadow: 0 0 18px 0 rgb(81 81 81 / 75%);
+
+  &-logo {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+
+    img {
+      width: 60px;
+      margin-right: 20px;
+    }
+  }
+
+  &-currency-rate {
+    &-flag {
+      width: 30px;
+      margin-right: 10px;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+
+  h2 {
+    font-size: 27px;
+    font-weight: 800;
+  }
+
+  p {
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
