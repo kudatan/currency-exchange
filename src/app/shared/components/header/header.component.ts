@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {CurrencyService} from "../../services/currency.service";
 import {DecimalPipe} from "@angular/common";
+import {takeUntil} from "rxjs";
+import {DestroySubscription} from "../../helpers/destroy-subscription";
 
 @Component({
   selector: 'app-header',
@@ -11,13 +13,15 @@ import {DecimalPipe} from "@angular/common";
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent extends DestroySubscription implements OnInit{
 
   usdToUah: number = 0;
   eurToUah: number = 0;
   currentDate!: string;
 
-  constructor(private currencyService: CurrencyService) {}
+  constructor(private currencyService: CurrencyService) {
+    super()
+  }
 
   ngOnInit(): void {
     this.loadExchangeRates();
@@ -25,7 +29,7 @@ export class HeaderComponent implements OnInit{
   }
 
   loadExchangeRates(): void {
-    this.currencyService.getExchangeRates().subscribe(rates => {
+    this.currencyService.getExchangeRates().pipe(takeUntil(this.destroyStream$)).subscribe(rates => {
       this.usdToUah = rates['UAH'];
       this.eurToUah = rates['EUR'] / rates['USD'] * rates['UAH'];
     });

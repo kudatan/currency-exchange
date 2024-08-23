@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CurrencyService} from "../../services/currency.service";
 import {FormsModule} from "@angular/forms";
 import {NgForOf} from "@angular/common";
+import {takeUntil} from "rxjs";
+import {DestroySubscription} from "../../helpers/destroy-subscription";
 
 @Component({
   selector: 'app-converter',
@@ -13,7 +15,7 @@ import {NgForOf} from "@angular/common";
   templateUrl: './converter.component.html',
   styleUrl: './converter.component.scss'
 })
-export class ConverterComponent implements OnInit{
+export class ConverterComponent extends DestroySubscription implements OnInit{
   currencies: string[] = ['UAH', 'USD', 'EUR', 'GBP', 'JPY'];
   currency1: string = 'USD';
   currency2: string = 'UAH';
@@ -22,14 +24,15 @@ export class ConverterComponent implements OnInit{
 
   private rates: { [key: string]: number } = {};
 
-  constructor(private currencyService: CurrencyService) {}
-
+  constructor(private currencyService: CurrencyService) {
+    super()
+  }
   ngOnInit(): void {
     this.loadRates();
   }
 
   loadRates(): void {
-    this.currencyService.getExchangeRates().subscribe(data => {
+    this.currencyService.getExchangeRates().pipe(takeUntil(this.destroyStream$)).subscribe(data => {
       this.rates = data;
       this.convertCurrency('fromFirst');
     });
